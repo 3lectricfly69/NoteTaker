@@ -17,15 +17,15 @@ app.get('/notes', (req, res) =>
     
 app.get('/api/notes', (req, res) =>
 // return res.json(notes);
-    {fs.readFile('/db/db.json', (err, data) =>
-            {if (err) throw err;
+    {fs.readFile('db/db.json', (err, data) => {
+            if (err) throw err;
             let notes = JSON.parse(data);
             return res.json(notes);
             });
 });
     
     app.listen(PORT, () =>
-        {console.log(`app listening at http://localhost: ${PORT}`)
+        {console.log(`app listening at http://localhost:${PORT}`)
 });
     
     app.post('/api/notes', (req, res) => {
@@ -34,7 +34,7 @@ app.get('/api/notes', (req, res) =>
         
         console.log(newNote);
 
-        fs.readFile('/db/db.json',  function(err, data){
+        fs.readFile('db/db.json',  function(err, data){
             if (err) throw err;
             let notes = JSON.parse(data);
             newNote.id = notes.length + 1;
@@ -48,7 +48,7 @@ app.get('/api/notes', (req, res) =>
         //writeFile("db/db.json", JSON.stringify(newNote), function(err){})
         
     
-        fs.writeFile('/db/db.json', JSON.stringify(notes), function(err){
+        fs.writeFile('db/db.json', JSON.stringify(notes), function(err){
             if (err) throw err;
             return res.json(notes)
             console.log("saved into db.json")
@@ -61,7 +61,7 @@ app.get('/api/notes', (req, res) =>
     
     app.delete('/api/notes/:id', function(req, res){
     
-    fs.readFile('/db/db.json',function(err, data){
+    fs.readFile('db/db.json',function(err, data){
         if (err) throw err;
         let notes = JSON.parse(data);
         let id = req.params.id;
@@ -71,7 +71,7 @@ app.get('/api/notes', (req, res) =>
         }
         
         console.log(newNotes)
-        fs.writeFile('/db/db.json', JSON.stringify(newNotes), function(err){
+        fs.writeFile('db/db.json', JSON.stringify(newNotes), function(err){
             if (err) throw err;
             return res.status(202).send();
             console.log('saved into db.json')
